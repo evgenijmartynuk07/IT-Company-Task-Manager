@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Task(models.Model):
+class TaskType(models.Model):
     name = models.CharField(max_length=63)
 
 
@@ -17,3 +17,4 @@ class Worker(AbstractUser):
         name="worker"
     )
 
+class
