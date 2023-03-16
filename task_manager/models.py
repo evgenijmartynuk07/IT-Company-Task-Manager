@@ -3,11 +3,11 @@ from django.db import models
 
 
 class TaskType(models.Model):
-    name = models.CharField(max_length=63)
+    name = models.CharField(max_length=63, unique=True)
 
 
 class Position(models.Model):
-    name = models.CharField(max_length=63)
+    name = models.CharField(max_length=63, unique=True)
 
 
 class Worker(AbstractUser):
@@ -17,4 +17,24 @@ class Worker(AbstractUser):
         name="worker"
     )
 
-class
+
+class Task(models.Model):
+    PRIORITY_CHOICES = (
+        ("LOW", "Low"),
+        ("AVERAGE", "Average"),
+        ("HIGH", "High"),
+        ("URGENT", "Urgent")
+    )
+
+    name = models.CharField(max_length=63)
+    description = models.TextField()
+    deadline = models.DateTimeField()
+    is_completed = models.BooleanField()
+    priority = models.CharField(
+        max_length=12,
+        choices=PRIORITY_CHOICES,
+        default="LOW"
+    )
+
+    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, name="task")
+    assignees = models.ManyToManyField(Worker, name="task")
