@@ -4,8 +4,8 @@ from django.contrib.auth.models import Group
 
 from .models import TaskType, Task, Worker, Position
 
-#
-# admin.site.unregister(Group)
+
+admin.site.unregister(Group)
 
 
 @admin.register(TaskType)
@@ -18,3 +18,8 @@ class TaskTypeAdmin(admin.ModelAdmin):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "deadline", "is_completed", "priority"]
+
+
+@admin.register(Worker)
+class WorkerAdmin(UserAdmin):
+    list_display = UserAdmin.list_display + ("position",)
