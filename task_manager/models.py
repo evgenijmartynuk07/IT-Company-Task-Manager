@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -12,6 +13,9 @@ class TaskType(models.Model):
 class Position(models.Model):
     name = models.CharField(max_length=63, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Worker(AbstractUser):
     position = models.ForeignKey(
@@ -19,6 +23,9 @@ class Worker(AbstractUser):
         on_delete=models.CASCADE,
         name="worker"
     )
+
+    def __str__(self):
+        return f"{get_user_model().username}"
 
 
 class Task(models.Model):
@@ -41,3 +48,6 @@ class Task(models.Model):
 
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, name="task")
     assignees = models.ManyToManyField(Worker, name="task")
+
+    def __str__(self):
+        return self.name
