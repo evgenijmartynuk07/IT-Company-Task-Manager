@@ -36,7 +36,7 @@ class Worker(AbstractUser):
         ordering = ["username"]
 
     def __str__(self):
-        return f"{get_user_model().username}"
+        return f"{Worker.username}"
 
 
 class Task(models.Model):
