@@ -50,11 +50,16 @@ class Task(models.Model):
     name = models.CharField(max_length=63)
     description = models.TextField()
     deadline = models.DateTimeField()
-    is_completed = models.BooleanField()
+    is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=12, choices=PRIORITY_CHOICES, default="LOW")
 
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
-    assignees = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="tasks")
+    assignees = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="tasks",
+        null=True,
+        blank=True
+    )
 
     class Meta:
         ordering = ["name"]
