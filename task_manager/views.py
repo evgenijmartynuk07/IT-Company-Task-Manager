@@ -4,7 +4,6 @@ from django.shortcuts import render
 from task_manager.models import Task
 
 
-@login_required
 def index(request):
     num_task = Task.objects.all().count()
 
