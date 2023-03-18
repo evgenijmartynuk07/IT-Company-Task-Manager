@@ -29,3 +29,6 @@ class TaskUpdateView(generic.UpdateView):
     fields = ("name", "description", "deadline", "priority", "task_type")
 
 
+class TaskDetailView(generic.DetailView):
+    model = Task
+    queryset = Task.objects.prefetch_related("assignees").select_related("task_type")

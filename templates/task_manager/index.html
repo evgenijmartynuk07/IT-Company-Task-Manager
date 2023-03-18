@@ -24,43 +24,53 @@
            <div class="ml-auto mt-auto m-sm-auto">
             <div class="nav justify-content-center m-4">
                  <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: lightgrey">
-                     <p class="d-flex align-items-center" role="alert">TO DO</p>
+                     <h3 class="d-flex align-items-center">To do</h3>
                      {% for task in tasks %}
+                         {% if task.is_completed == False and not task.assignees.all %}
                      <div class="card">
                          <h5 class="card-header">{{ task.name }}</h5>
                             <div class="card-body">
                                 <h5 class="card-title">{{ task.name }}</h5>
                                  <p class="card-text">{{ task.description }}</p>
-                                <a href="#" class="btn btn-outline-primary">Go somewhere</a>
+                                <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a>
                             </div>
                      </div>
                     <br>
+                         {% endif %}
                     {% endfor %}
                  <a href="{% url "task_manager:task-create" %}" class="btn btn-info">+ Add a task</a>
             </div>
 
             <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert-dark m-2" style="background-color: lightgrey">
-                <p class="text-strong d-flex align-items-center" role="alert">DOING</p>
+                <h3 class="text-strong d-flex align-items-center">Doing</h3>
+                {% for task in tasks %}
+                    {% if task.is_completed == False and task.assignees.get %}
                 <div class="card">
-                    <h5 class="card-header">Featured</h5>
+                    <h5 class="card-header">{{ task.name }}</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">{{ task.name }}</h5>
+                        <p class="card-text">{{ task.description }}</p>
+                        <h5 class="card-title">In process: {{ task.assignees.get }}</h5>
                     </div>
                 </div>
                 <br>
+                    {% endif %}
+                {% endfor %}
             </div>
 
             <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2" style="background-color: lightgrey">
-                <p class="d-flex align-items-center" role="alert">DONE</p>
+                <h3 class="d-flex align-items-center">Done</h3>
                 <div class="card text-bg-primary mb-3">
-                    <h5 class="card-header">Featured</h5>
+                    {% for task in tasks %}
+                    {% if task.is_completed == True %}
+                    <h5 class="card-header">{{ task.name }}</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">{{ task.name }}</h5>
+                        <p class="card-text">{{ task.description }}</p>
+                        <h5 class="card-title">In process: {{ task.assignees.get }}</h5>
                     </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
