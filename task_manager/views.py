@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.views import generic
 
 from task_manager.models import Task
 
@@ -16,3 +17,8 @@ def index(request):
     }
 
     return render(request, "task_manager/index.html", context=context)
+
+
+class TaskCreateView(generic.CreateView):
+    model = Task
+    fields = "__all__"
