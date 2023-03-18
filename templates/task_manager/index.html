@@ -1,12 +1,87 @@
+{% extends "base.html" %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
-    {{ num_task }}
-    {{ num_visits }}
 
+    {% block content %}
+
+        <div class="align-content-center" style="float: right">
+            <div class="row m-2">
+                 <div class="col-lg-3 ms-auto me-auto p-lg-4 mt-lg-0 mt-1 alert alert-primary m-2 ">
+                     <p class="alert alert-danger d-flex align-items-center" role="alert">TO DO</p>
+                     {% for task in tasks %}
+                     <div class="card">
+                         <h5 class="card-header">{{ task.name }}</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ task.name }}</h5>
+                                 <p class="card-text">{{ task.description }}</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                            </div>
+
+                    </div>
+                         <br>
+                     {% endfor %}
+                     <br>
+                     <div class="card">
+                         <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                    </div>
+
+
+
+                 </div>
+                <div class="col-lg-3 ms-auto me-auto p-lg-4 mt-lg-0 mt-2 alert alert-primary m-2 ">
+                    <p class="alert alert-warning d-flex align-items-center" role="alert">DOING</p>
+                        <div class="card">
+                         <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                         </div>
+                     <br>
+                     <div class="card">
+                         <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                    </div>
+
+
+
+                        </div>
+
+
+                <div class="col-lg-3 ms-auto me-auto p-lg-4 mt-lg-0 mt-2 alert alert-primary m-2 ">
+                    <p class="alert alert-success d-flex align-items-center" role="alert">DONE</p>
+                    <div class="card">
+                         <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+
+
+{% endblock %}
 </body>
 </html>
+

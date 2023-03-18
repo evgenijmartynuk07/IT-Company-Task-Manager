@@ -5,13 +5,13 @@ from task_manager.models import Task
 
 
 def index(request):
-    num_task = Task.objects.all().count()
+    tasks = Task.objects.all()
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
 
     context = {
-        "num_task": num_task,
+        "tasks": tasks,
         "num_visits": num_visits + 1,
     }
 
