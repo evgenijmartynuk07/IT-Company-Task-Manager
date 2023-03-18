@@ -21,4 +21,11 @@ def index(request):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = "__all__"
+    fields = ("name", "description", "deadline", "priority", "task_type")
+
+
+class TaskUpdateView(generic.UpdateView):
+    model = Task
+    fields = ("name", "description", "deadline", "priority", "task_type")
+
+

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-
-<body>
+{% load static %}
+<body xmlns="http://www.w3.org/1999/html">
 
  {% block content %}
 
-  <div class="justify-content-center mh-100">
+  <div class="p-3" style="background-color: rebeccapurple">
       <ul class="nav justify-content-center" style="background-color: rebeccapurple">
       <li class="nav-item">
         <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
@@ -23,7 +23,7 @@
 
            <div class="ml-auto mt-auto m-sm-auto">
             <div class="nav justify-content-center m-4">
-                 <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark">
+                 <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: lightgrey">
                      <p class="d-flex align-items-center" role="alert">TO DO</p>
                      {% for task in tasks %}
                      <div class="card">
@@ -36,10 +36,10 @@
                      </div>
                     <br>
                     {% endfor %}
-                 <a href="task_form.html" class="btn btn-info">+ Add a task</a>
+                 <a href="{% url "task_manager:task-create" %}" class="btn btn-info">+ Add a task</a>
             </div>
 
-            <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert-dark m-2">
+            <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert-dark m-2" style="background-color: lightgrey">
                 <p class="text-strong d-flex align-items-center" role="alert">DOING</p>
                 <div class="card">
                     <h5 class="card-header">Featured</h5>
@@ -52,7 +52,7 @@
                 <br>
             </div>
 
-            <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2">
+            <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2" style="background-color: lightgrey">
                 <p class="d-flex align-items-center" role="alert">DONE</p>
                 <div class="card text-bg-primary mb-3">
                     <h5 class="card-header">Featured</h5>

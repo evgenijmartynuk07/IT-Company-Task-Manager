@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_bootstrap5",
     "crispy_bootstrap4",
     "crispy_forms",
     "task_manager",
@@ -120,7 +119,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+
+]
 
 STATIC_URL = "static/"
 
