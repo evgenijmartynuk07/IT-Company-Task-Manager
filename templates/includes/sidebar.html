@@ -5,7 +5,7 @@
         <a class="nav-link active text-white" aria-current="page" href="{% url "task_manager:index" %}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="#">Tasks</a>
+        <a class="nav-link text-white" href="{% url "task_manager:task-list" %}">Tasks</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-white" href="{% url "task_manager:worker-list" %}">Workers</a>

@@ -11,7 +11,7 @@
                      {% for task in tasks %}
                          {% if task.is_completed == False and user.id == task.assignees.get.id %}
                      <div class="card">
-                         <h5 class="card-header" style="background-color: lightskyblue">from: {{ task.name }}</h5>
+                         <h5 class="card-header" style="background-color: lightskyblue">from: {{ task.owner.username }}</h5>
                             <div class="card-body">
                                 <h5 class="card-title">{{ task.name }}</h5>
                                  <p class="card-text">{{ task.description }}</p>

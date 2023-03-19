@@ -45,6 +45,11 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("task_manager:index")
 
 
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    queryset = Task.objects.all()
+
+
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     fields = ("name", "description", "deadline", "priority", "task_type", "assignees")
