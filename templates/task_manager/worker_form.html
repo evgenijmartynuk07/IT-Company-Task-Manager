@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="ml-auto mt-auto m-sm-auto">
+        <div class="nav justify-content-center m-4">
+            <form class="m-2 p-5" action="" method="post" novalidate style="background-color: white;">
+                 <h1>{{ object|yesno:"Update worker data,Rigister new worker" }}</h1>
+            {% csrf_token %}
+            {{ form|crispy }}
+                <div class="nav justify-content-center">
+                    <input type="submit" value="Register" class="btn btn-primary col-10">
+                </div>
+             </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}

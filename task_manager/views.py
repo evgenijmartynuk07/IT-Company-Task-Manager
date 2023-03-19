@@ -25,6 +25,7 @@ def index(request):
 class WorkerCreateView(generic.CreateView):
     model = get_user_model()
     form_class = WorkerCreateForm
+    success_url = reverse_lazy("task_manager:index")
 
 
 class TaskCreateView(generic.CreateView):

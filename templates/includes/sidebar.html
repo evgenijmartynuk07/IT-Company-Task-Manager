@@ -14,10 +14,13 @@
         <a class="nav-link text-white" href="#">About Us</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="{%  url "login" %}">login</a>
+          <a class="nav-link" href="{%  url "login" %}">Login</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="{% url "logout" %}">logout</a>
+          <a class="nav-link" href="{% url "logout" %}">Logout</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{% url "task_manager:worker-create" %}">Register</a>
       </li>
     </ul>
 
