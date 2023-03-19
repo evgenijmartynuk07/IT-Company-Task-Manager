@@ -1,8 +1,8 @@
 
-  <div class="p-3" style="background-color: rebeccapurple">
+<nav class="navbar navbar-expand-lg nav justify-content-center" style="background-color: rebeccapurple">
       <ul class="nav justify-content-center" style="background-color: rebeccapurple">
       <li class="nav-item">
-        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+        <a class="nav-link active text-white" aria-current="page" href="{% url "task_manager:index" %}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-white" href="#">Tasks</a>
@@ -13,15 +13,20 @@
            <li class="nav-item">
         <a class="nav-link text-white" href="#">About Us</a>
       </li>
+      {% if not user.id %}
       <li class="nav-item">
           <a class="nav-link" href="{%  url "login" %}">Login</a>
       </li>
+      {% endif %}
+      {% if user.id %}
       <li class="nav-item">
           <a class="nav-link" href="{% url "logout" %}">Logout</a>
       </li>
+      {% endif %}
+          {% if not user.id %}
       <li class="nav-item">
           <a class="nav-link" href="{% url "task_manager:worker-create" %}">Register</a>
       </li>
+          {% endif %}
     </ul>
-
-  </div>
+</nav>
