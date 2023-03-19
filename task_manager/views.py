@@ -30,6 +30,15 @@ class WorkerCreateView(generic.CreateView):
     success_url = reverse_lazy("task_manager:index")
 
 
+class WorkerListView(generic.ListView):
+    model = get_user_model()
+    queryset = get_user_model().objects.prefetch_related(
+        "tasks"
+    ).select_related(
+        "position"
+    )
+
+
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     fields = ("name", "description", "deadline", "priority", "task_type", "assignees")

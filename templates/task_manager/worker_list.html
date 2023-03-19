@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+    <div class="nav justify-content-center m-4">
+     {% for worker in object_list %}
+        <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2">
 
-</body>
-</html>
+        <div class="card">
+            <h5>Worker: {{ worker.username }}</h5>
+            <h5>Position: {{ worker.position.name }}</h5>
+            {% for task in worker.tasks.all %}
+                <botton class="btn-primary"><a href="{% url "task_manager:task-detail" pk=task.id %}"><h5 class="text-white">from: {{ task.name }}</h5></a></botton>
+            {% endfor %}
+        </div>
+
+     </div>
+     {% endfor %}
+    </div>
+
+
+
+{% endblock %}
