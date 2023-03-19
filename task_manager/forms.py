@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from task_manager.models import Task
 
 
 class WorkerCreateForm(UserCreationForm):
@@ -20,3 +22,9 @@ class WorkerCreateForm(UserCreationForm):
             "position"
         )
 
+
+class TaskCreateForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ["name", "description", "deadline", "priority", "task_type", "assignees", "owner"]
+        widgets = {"owner": forms.HiddenInput()}

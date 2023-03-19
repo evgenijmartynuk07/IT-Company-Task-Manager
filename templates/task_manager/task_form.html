@@ -8,8 +8,9 @@
         {% csrf_token %}
         <div class="form-check-input m-5">
             {{ form|crispy }}
+            <input type="hidden" name="owner" value="{{ user.id }}">
             <input type="submit" value="submit">
-            <input type="hidden" value="{{ user.id }}">
+
         </div>
 
 
