@@ -3,5 +3,9 @@
 
 
 {% block content %}
+    <p>{{ task.name }}</p>
+  <p>{{ task.deadline }}</p>
+  <p>{{ task.description }}</p>
+  <p>{{ task.is_completed }}</p>
     <a href="{% url "task_manager:task-create" %}" class="btn btn-primary">Add a task</a>
 {% endblock %}

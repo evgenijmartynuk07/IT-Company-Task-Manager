@@ -3,35 +3,34 @@
 <body xmlns="http://www.w3.org/1999/html">
 
  {% block content %}
-
-           <div class="ml-auto mt-auto m-sm-auto">
-            <div class="nav justify-content-center m-4">
-                 <div class="col-lg-6 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: #f5f5f5">
-                     <h3 class="d-flex align-items-center">You must complete these tasks</h3>
-                     {% for task in tasks %}
-                         {% if task.is_completed == False and user.id == task.assignees.get.id %}
-                     <div class="card">
-                         <h5 class="card-header" style="background-color: lightskyblue">from: {{ task.owner.username }}</h5>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ task.name }}</h5>
-                                 <p class="card-text">{{ task.description }}</p>
-                                <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a>
-                            </div>
-                     </div>
-                    <br>
-                         {% endif %}
-                    {% endfor %}
-
-            </div>
-
-
+   <div class="ml-auto mt-auto m-sm-auto">
+      <div class="nav justify-content-center m-4">
+         <div class="col-lg-6 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: #f5f5f5">
+           <h3 class="d-flex align-items-center">You must complete these tasks</h3>
+           {% for task in tasks %}
+               {% if task.is_completed == False and user.id == task.assignees.get.id %}
+           <div class="card">
+               <h5 class="card-header" style="background-color: burlywood">from: {{ task.owner.username }}</h5>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ task.name }}</h5>
+                       <p class="card-text alert-warning p-4">{{ task.description }}</p>
+                      <p class="card-text">task type: {{ task.task_type.name }}</p>
+                      <p class="card-text">deadline: {{ task.deadline }}</p>
+                      <p class="card-text">priority: {{ task.priority }}</p>
+                      <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a>
+                  </div>
+           </div>
+            <br>
+                 {% endif %}
+            {% endfor %}
+          </div>
 
             <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2" style="background-color: #f5f5f5">
                 <h3 class="d-flex align-items-center">Done</h3>
                 <div class="card text-bg-primary mb-3">
                     {% for task in tasks %}
                     {% if task.is_completed == True %}
-                    <h5 class="card-header" style="background-color: lightskyblue">{{ task.name }}</h5>
+                    <h5 class="card-header" style="background-color: burlywood">{{ task.name }}</h5>
                     <div class="card-body">
                         <h5 class="card-title">{{ task.name }}</h5>
                         <p class="card-text">{{ task.description }}</p>
@@ -43,7 +42,6 @@
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
 </body>
