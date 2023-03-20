@@ -65,17 +65,21 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Task.objects.prefetch_related("assignees").select_related("task_type")
     form_class = TaskCompletedUpdateForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class()
+        return context
+
     def post(self, request, **kwargs):
         self.object = self.get_object()
         form = TaskCompletedUpdateForm(request.POST)
 
         task = Task.objects.get(id=self.object.pk)
-        if form["assignees"]:
+        if request.POST.get("is_completed") == "1":
+            task.is_completed = True
+            task.save()
+        if request.POST.get("assignees") == f"{self.request.user.id}":
             task.assignees.add(self.request.user.id)
             task.save()
 
-            return redirect("task_manager:task-detail", pk=self.object.pk)
-        elif form["is_completed"]:
-            task.is_completed = True
-            task.save()
-            return redirect("task_manager:task-detail", pk=self.object.pk)
+        return redirect("task_manager:task-detail", pk=self.object.pk)
