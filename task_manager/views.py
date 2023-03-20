@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from task_manager.forms import WorkerCreateForm, TaskCreateForm
+from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm
 from task_manager.models import Task
 
 
@@ -30,7 +30,7 @@ class WorkerCreateView(generic.CreateView):
     success_url = reverse_lazy("task_manager:index")
 
 
-class WorkerListView(generic.ListView):
+class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = get_user_model()
     queryset = get_user_model().objects.prefetch_related(
         "tasks"
@@ -63,3 +63,19 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     queryset = Task.objects.prefetch_related("assignees").select_related("task_type")
+    form_class = TaskCompletedUpdateForm
+
+    def post(self, request, **kwargs):
+        self.object = self.get_object()
+        form = TaskCompletedUpdateForm(request.POST)
+
+        task = Task.objects.get(id=self.object.pk)
+        if form["assignees"]:
+            task.assignees.add(self.request.user.id)
+            task.save()
+
+            return redirect("task_manager:task-detail", pk=self.object.pk)
+        elif form["is_completed"]:
+            task.is_completed = True
+            task.save()
+            return redirect("task_manager:task-detail", pk=self.object.pk)

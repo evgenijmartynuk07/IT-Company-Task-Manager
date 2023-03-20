@@ -26,5 +26,15 @@ class WorkerCreateForm(UserCreationForm):
 class TaskCreateForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ["name", "description", "deadline", "priority", "task_type", "assignees", "owner"]
+        fields = ("name", "description", "deadline", "priority", "task_type", "assignees", "owner")
         widgets = {"owner": forms.HiddenInput()}
+
+
+class TaskCompletedUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ("is_completed", "assignees",)
+        widgets = {"assignees": forms.HiddenInput(), "is_completed": forms.HiddenInput()}
+
+
+
