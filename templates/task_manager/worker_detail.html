@@ -1,1 +1,32 @@
 {% extends "base.html" %}
+
+{% block content %}
+  <div class="ml-auto mt-auto m-sm-auto nav justify-content-center p-4">
+    <div class="badge col-lg-8 nav justify-content-center m-0 p-4" style="background-color: white">
+      <h4><span style="font-weight: bold">username:</span> {{ worker.username }}</h4>
+      <h4><span style="font-weight: bold">full name:</span> {{ worker.first_name }} {{ worker.last_name }}</h4>
+      <h4><span style="font-weight: bold">position:</span> {{ worker.position.name }}</h4>
+      <h4><span style="font-weight: bold">tasks in work:</span>
+          {% for task in worker.tasks.all %}
+            {% if not task.is_completed %}
+            <h4><a href="{% url "task_manager:task-detail" pk=task.id %}">{{ task }}</a></h4>
+            {% endif %}
+        {% endfor %}
+      <h4><span style="font-weight: bold">done task:</span>
+          {% for task in worker.tasks.all %}
+            {% if task.is_completed %}
+            <h4><a href="{% url "task_manager:task-detail" pk=task.id %}">{{ task }}</a></h4>
+            {% endif %}
+        {% endfor %}
+
+
+      </h4>
+      <div class="col-lg-3">
+        <h6>Contact information:</h6>
+        <h4><span style="font-weight: bold">email:</span> {{ worker.email }}</h4>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
