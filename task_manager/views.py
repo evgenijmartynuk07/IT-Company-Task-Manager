@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm
+from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm, WorkerUpdateForm
 from task_manager.models import Task
 
 

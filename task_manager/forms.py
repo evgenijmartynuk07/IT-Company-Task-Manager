@@ -23,6 +23,25 @@ class WorkerCreateForm(UserCreationForm):
         )
 
 
+class WorkerUpdateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(forms.ModelForm, self).__init__(*args, **kwargs)
+
+        super().__init__()
+        for field_name in ["username"]:
+            self.fields[field_name].help_text = None
+
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = (
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+        )
+
+
 class TaskCreateForm(forms.ModelForm):
     class Meta:
         model = Task

@@ -4,7 +4,11 @@
   <div class="ml-auto mt-auto m-sm-auto nav justify-content-center p-4">
     <div class="badge col-lg-6 m-0 p-4" style="background-color: white">
       <div class="col-lg-1">
-        <h4><span style="font-weight: bold">username:</span> {{ worker.username }}</h4>
+        <h4><span style="font-weight: bold">username: </span>{{ worker.username }}
+          {% if user.id == worker.id %}
+            (Me)
+          {% endif %}
+        </h4>
         <h4><span style="font-weight: bold">full name:</span> {{ worker.first_name }} {{ worker.last_name }}</h4>
         <h4><span style="font-weight: bold">position:</span> {{ worker.position.name }}</h4>
         <h4><span style="font-weight: bold">tasks in work:</span>
@@ -27,9 +31,11 @@
         <h6>Contact information:</h6>
         <h4><span style="font-weight: bold">email:</span> {{ worker.email }}</h4>
       </div>
+      {% if user.id == worker.id %}
       <div>
-        <button href="{% url "task_manager:worker-update" %}" class="btn btn-warning">Update information</button>
+        <a href="{% url "task_manager:worker-update" pk=user.id %}"><button class="btn btn-warning">Update information</button></a>
       </div>
+      {% endif %}
 
 
     </div>
