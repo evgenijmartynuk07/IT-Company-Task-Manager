@@ -2,29 +2,35 @@
 
 {% block content %}
   <div class="ml-auto mt-auto m-sm-auto nav justify-content-center p-4">
-    <div class="badge col-lg-8 nav justify-content-center m-0 p-4" style="background-color: white">
-      <h4><span style="font-weight: bold">username:</span> {{ worker.username }}</h4>
-      <h4><span style="font-weight: bold">full name:</span> {{ worker.first_name }} {{ worker.last_name }}</h4>
-      <h4><span style="font-weight: bold">position:</span> {{ worker.position.name }}</h4>
-      <h4><span style="font-weight: bold">tasks in work:</span>
+    <div class="badge col-lg-6 m-0 p-4" style="background-color: white">
+      <div class="col-lg-1">
+        <h4><span style="font-weight: bold">username:</span> {{ worker.username }}</h4>
+        <h4><span style="font-weight: bold">full name:</span> {{ worker.first_name }} {{ worker.last_name }}</h4>
+        <h4><span style="font-weight: bold">position:</span> {{ worker.position.name }}</h4>
+        <h4><span style="font-weight: bold">tasks in work:</span>
           {% for task in worker.tasks.all %}
             {% if not task.is_completed %}
             <h4><a href="{% url "task_manager:task-detail" pk=task.id %}">{{ task }}</a></h4>
             {% endif %}
-        {% endfor %}
-      <h4><span style="font-weight: bold">done task:</span>
+          {% endfor %}
+        </h4>
+        <h4><span style="font-weight: bold">done task:</span>
           {% for task in worker.tasks.all %}
             {% if task.is_completed %}
-            <h4><a href="{% url "task_manager:task-detail" pk=task.id %}">{{ task }}</a></h4>
+              <h4><a href="{% url "task_manager:task-detail" pk=task.id %}">{{ task }}</a></h4>
             {% endif %}
-        {% endfor %}
-
-
-      </h4>
-      <div class="col-lg-3">
+          {% endfor %}
+        </h4>
+      </div>
+      <br>
+      <div class="col-lg-1">
         <h6>Contact information:</h6>
         <h4><span style="font-weight: bold">email:</span> {{ worker.email }}</h4>
       </div>
+      <div>
+        <button href="{% url "task_manager:worker-update" %}" class="btn btn-warning">Update information</button>
+      </div>
+
 
     </div>
   </div>
