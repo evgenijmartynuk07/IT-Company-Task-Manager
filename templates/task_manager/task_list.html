@@ -35,7 +35,7 @@
               username: @{{ worker }}
             {% endfor %}
             </h6>
-            <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">More Details</a></span>
+            <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
           </div>
         </div>
             {% endif %}
@@ -68,7 +68,7 @@
                   {% endfor %}
                 </h6>
               </h5>
-              <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">More Details</a></span>
+              <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
             </div>
           </div>
     {% endif %}
