@@ -5,12 +5,19 @@
  {% block content %}
    <div class="ml-auto mt-auto m-sm-auto">
       <div class="nav justify-content-center m-4">
-         <div class="col-lg-5 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: gainsboro">
-           <h3 class="d-flex align-items-center">You must complete these tasks</h3>
+         <div class="col-lg-5 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: white">
+         <div class="nav justify-content-center">
+           <h3 class="d-flex align-items-center">
+             <img src="{% static "task_manager/not yet.png" %}">
+             You must complete these tasks
+           </h3>
+
+         </div>
+
            {% for task in tasks %}
                {% if task.is_completed == False and user in task.assignees.all %}
-           <div class="card">
-               <h5 class="card-header" style="background-color: plum">from:
+           <div class="card mb-3 m-4">
+               <h5 class="card-header badge-primary">from:
                           {{ task.owner.first_name }}
                           {{ task.owner.last_name }}
                           ({{ task.owner.username }})
@@ -21,20 +28,27 @@
                       <p class="card-text">task type: {{ task.task_type.name }}</p>
                       <p class="card-text">deadline: {{ task.deadline }}</p>
                       <p class="card-text">priority: {{ task.priority }}</p>
-                      <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a>
+                    <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
                   </div>
            </div>
             <br>
                  {% endif %}
             {% endfor %}
-          </div>
+          </div >
 
-            <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2" style="background-color: gainsboro">
-                <h3 class="d-flex align-items-center">Done</h3>
+            <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2" style="background-color: white">
+              <div class="nav justify-content-center">
+                <h3 class="d-flex align-items-center">
+                  <img src="{% static "task_manager/ok.png" %}">
+                  Done
+                </h3>
+
+              </div>
+
                     {% for task in tasks %}
                     {% if task.is_completed == True and user in task.assignees.all %}
-                      <div class="card text-bg-primary mb-3">
-                        <h5 class="card-header" style="background-color: plum">from:
+                      <div class="card mb-3 m-4">
+                        <h5 class="card-header badge-primary">from:
                           {{ task.owner.first_name }}
                           {{ task.owner.last_name }}
                           ({{ task.owner.username }})
@@ -48,7 +62,7 @@
                             {% endfor %}
                           </h5>
 
-                          <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a>
+                          <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
                         </div>
                       </div>
                     {% endif %}
