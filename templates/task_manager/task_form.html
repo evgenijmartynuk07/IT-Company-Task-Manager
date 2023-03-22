@@ -6,8 +6,8 @@
 {% block content %}
 
     <div class="ml-auto mt-auto m-sm-auto nav justify-content-center p-4">
-    <div class="badge col-lg-4 nav justify-content-center m-0 p-4" style="background-color: white">
-          <form class="m-1 p-1" action="" method="post">
+    <div class="badge ml-4 col-lg-4 nav justify-content-center m-0 p-4" style="background-color: white">
+          <form class=" m-1 p-1" action="" method="post">
               {% csrf_token %}
                   {{ form|crispy }}
                   <input type="hidden" name="owner" value="{{ user.id }}">

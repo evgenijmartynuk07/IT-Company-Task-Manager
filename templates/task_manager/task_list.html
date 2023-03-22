@@ -17,13 +17,17 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ task.name }}</h5>
                   <p class="card-text alert-primary p-4">{{ task.description }}</p>
+
                   <h5 class="card-title">In process:</h5>
                   <h6>
-                    {% for worker in  task.assignees.all %}
-                      username: @{{ worker }}
-                    {% endfor %}
-                  </h6>
-                    <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">More Details</a>
+                  {% for worker in  task.assignees.all %}
+                    username: @{{ worker }}
+                  {% endfor %}
+                </h6>
+                  <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">More Details</a></span>
+
+
+
                 </div>
               </div>
             {% endif %}
@@ -52,7 +56,7 @@
             {% endfor %}
           </h6>
         </h5>
-        <a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">More Details</a>
+        <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">More Details</a></span>
       </div>
     </div>
     {% endif %}
