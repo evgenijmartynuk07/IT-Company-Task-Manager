@@ -12,16 +12,27 @@ from task_manager.models import Task
 
 @login_required
 def index(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.prefetch_related(
+        "assignees"
+    ).select_related(
+        "owner"
+    ).select_related(
+        "task_type"
+    ).filter(
+        assignees=request.user.id
+    )
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
-    paginator = Paginator(tasks, 4)
+
+    paginator = Paginator(tasks, 2)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        "tasks": tasks,
         "num_visits": num_visits + 1,
         "paginator": paginator,
+        "page_obj": page_obj,
     }
 
     return render(request, "task_manager/index.html", context=context)

@@ -14,7 +14,7 @@
 
          </div>
 
-           {% for task in tasks %}
+           {% for task in page_obj %}
                {% if task.is_completed == False and user in task.assignees.all %}
            <div class="card mb-3 m-4">
                <h5 class="card-header badge-primary">from:
@@ -45,7 +45,7 @@
 
               </div>
 
-                    {% for task in tasks %}
+                    {% for task in page_obj %}
                     {% if task.is_completed == True and user in task.assignees.all %}
                       <div class="card mb-3 m-4">
                         <h5 class="card-header badge-primary">from:
