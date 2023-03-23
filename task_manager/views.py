@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from django.core.paginator import Paginator
 
 from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm, WorkerUpdateForm
 from task_manager.models import Task
@@ -15,10 +16,12 @@ def index(request):
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
+    paginator = Paginator(tasks, 4)
 
     context = {
         "tasks": tasks,
         "num_visits": num_visits + 1,
+        "paginator": paginator,
     }
 
     return render(request, "task_manager/index.html", context=context)
