@@ -21,9 +21,16 @@
 
 {% include "includes/sidebar.html" %}
 
-{% block content %}
+{% block content %}{% endblock %}
+
+{% block pagination %}
+    {% include "includes/pagination.html" %}
 {% endblock %}
 
 </body>
-
+{#<footer>#}
+{#  {% block footer %}#}
+{##}
+{#  {% endblock %}#}
+{#</footer>#}
 </html>
