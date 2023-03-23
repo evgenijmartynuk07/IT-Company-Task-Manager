@@ -43,6 +43,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     ).select_related(
         "position"
     )
+    paginate_by = 5
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -59,6 +60,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     queryset = Task.objects.all()
+    paginate_by = 4
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):

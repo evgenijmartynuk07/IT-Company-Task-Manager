@@ -2,13 +2,10 @@
 {% load static %}
 
 {% block content %}
-{#  <div style="background-color: navy">#}
-{#      heeeeeeee#}
-{#    </div>#}
   <div class="row">
 
     <div class="nav justify-content-center m-4">
-      <div class="col-lg-4 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert-dark m-2" style="background-color: white">
+      <ul class="col-lg-4 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert-dark m-2" style="background-color: white">
         <div class="nav justify-content-center">
           <h3>
           <img src="{% static "task_manager/not yet.png" %}">
@@ -40,7 +37,7 @@
         </div>
             {% endif %}
     {% endfor %}
-      </div>
+      </ul>
       <div class="col-lg-4 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2" style="background-color: white">
         <div class="nav justify-content-center">
           <h3 class="d-flex align-items-center">
