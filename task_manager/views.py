@@ -25,7 +25,7 @@ def index(request):
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
 
-    paginator = Paginator(tasks, 2)
+    paginator = Paginator(tasks, 3)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -73,7 +73,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    queryset = Task.objects.all()
+    queryset = Task.objects.prefetch_related("assignees").select_related("owner")
     paginate_by = 4
 
 
