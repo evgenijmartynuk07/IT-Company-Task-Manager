@@ -21,25 +21,23 @@
           {% include "includes/sidebar.html" %}
         {% endblock %}
       </div>
-      <div class="flex-column">
+      <div>
         {% block content %}{% endblock %}
       </div>
 
         <div class="p-2">
           {% block pagination %}
-        {% include "includes/pagination.html" %}
-        {% endblock %}
+            {% include "includes/pagination.html" %}
+          {% endblock %}
         </div>
 
 
 {% block footer %}
+  <footer class="mt-auto" style="background-color: mediumpurple;">
   {% include "includes/footer.html" %}
-  {% endblock %}
+  </footer>
+{% endblock %}
 
 </body>
-
-
-
-
 
 </html>
