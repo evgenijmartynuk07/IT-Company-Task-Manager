@@ -30,38 +30,25 @@
         </div>
 
 
-
-
-
 {% block footer %}
-{#      <div class="w-100 position-sticky min-vh-100" style="background-color: white">#}
-
   <footer class="mt-auto" style="background-color: dimgrey;">
     <div class="container d-flex justify-content-center py-5 w-100">
-      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
-        <i class="fab fa-facebook-f"></i>
-      </button>
-      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
-        <i class="fab fa-youtube"></i>
-      </button>
-      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
-        <i class="fab fa-instagram"></i>
-      </button>
-      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
-        <i class="fab fa-twitter"></i>
-      </button>
+      <div class="mx-2">
+        <a href="#"><img src="{% static "task_manager/facebook-48.png" %}"></a>
+      </div>
+      <div class="mx-2">
+        <a href="#"><img src="{% static "task_manager/youtube-48.png" %}"></a>
+      </div>
+      <div class="mx-2">
+        <a href="#"><img src="{% static "task_manager/twitter-48.png" %}"></a>
+      </div>
     </div>
 
-    <!-- Copyright -->
     <div class="text-center text-white m-0 p-3 w-auto" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      <a class="text-white" href="task_manager/index.html">Martyniuk Eugen</a>
     </div>
-    <!-- Copyright -->
   </footer>
 
-{#</div>#}
-<!-- End of .container -->
   {% endblock %}
 
 </body>
