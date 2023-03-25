@@ -36,7 +36,13 @@
               <input class="btn btn-success" type="submit" value="finish this Task">
             </div>
             </form>
+            <div>
+            </div>
         </div>
+          {% endif %}
+          {% if user.id == task.owner.id %}
+            <br>
+            <a href="{% url "task_manager:task-delete" pk=task.id %}"><button class="btn btn-danger">Delete</button></a>
           {% endif %}
     </div>
   </div>
