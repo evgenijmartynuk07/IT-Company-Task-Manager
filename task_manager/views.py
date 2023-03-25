@@ -1,8 +1,8 @@
 import datetime
-from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -47,19 +47,13 @@ class WorkerCreateView(generic.CreateView):
     success_url = reverse_lazy("task_manager:index")
 
 
-class WorkerUpdateView(generic.CreateView):
+class WorkerUpdateView(LoginRequiredMixin, generic.CreateView):
     model = get_user_model()
     form_class = WorkerUpdateForm
-    # success_url = reverse_lazy("task_manager:index")
 
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = get_user_model()
-    queryset = get_user_model().objects.prefetch_related(
-        "tasks"
-    ).select_related(
-        "position"
-    )
     paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -73,12 +67,17 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = get_user_model().objects.prefetch_related(
+            "tasks"
+        ).select_related(
+            "position"
+        )
         form = WorkerSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(username__icontains=form.cleaned_data["username"])
+            return queryset.filter(username__icontains=form.cleaned_data["username"])
 
-        return self.queryset
+        return queryset
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
@@ -94,10 +93,9 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    queryset = Task.objects.prefetch_related("assignees").select_related("owner")
     paginate_by = 4
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(TaskListView, self).get_context_data(**kwargs)
 
         name = self.request.GET.get("name", "")
@@ -107,13 +105,14 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
+        queryset = Task.objects.prefetch_related("assignees").select_related("owner")
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(name__icontains=form.cleaned_data["name"])
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
 
-        return self.queryset
+        return queryset
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -131,7 +130,7 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Task.objects.prefetch_related("assignees").select_related("task_type")
     form_class = TaskCompletedUpdateForm
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class()
 
@@ -143,7 +142,6 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 
     def post(self, request, **kwargs):
         self.object = self.get_object()
-        form = TaskCompletedUpdateForm(request.POST)
 
         if request.POST.get("is_completed") == "1":
             self.object.is_completed = True
