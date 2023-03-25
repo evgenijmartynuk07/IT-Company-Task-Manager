@@ -9,7 +9,7 @@ from django.views import generic
 from django.core.paginator import Paginator
 
 from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm, WorkerUpdateForm, \
-    TaskSearchForm
+    TaskSearchForm, WorkerSearchForm
 from task_manager.models import Task
 
 
@@ -61,6 +61,24 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         "position"
     )
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WorkerListView, self).get_context_data(**kwargs)
+
+        username = self.request.GET.get("username", "")
+        context["search_field"] = WorkerSearchForm(initial={
+            "username": username
+        })
+
+        return context
+
+    def get_queryset(self):
+        form = WorkerSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(username__icontains=form.cleaned_data["username"])
+
+        return self.queryset
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
