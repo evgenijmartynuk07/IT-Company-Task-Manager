@@ -14,7 +14,25 @@
           <div class="card-text alert-primary p-2">
             <p>{{ task.description }}</p>
           </div>
-          <p>{{ task.is_completed }}</p>
+          {% if task.is_completed %}
+          <p>This Task closed by:</p>
+            <ul>
+              {% for worker in task.assignees.all %}
+                <li>
+                  <p>{{ worker.username }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>This Task open by:</p>
+            <ul>
+              {% for worker in task.assignees.all %}
+                <li>
+                  <p>{{ worker.username }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
           {% if user not in task.assignees.all  %}
             <form action="" method="post">
               {% csrf_token %}
@@ -24,8 +42,10 @@
                 <input class="btn badge-primary" type="submit" value="start working">
               </div>
             </form>
-          {% else %}
+          {% elif not task.is_completed %}
             <h5>You started this Task</h5>
+          {% else %}
+            <h5>You finish this Task</h5>
           {% endif %}
           {% if task.is_completed == False and user in task.assignees.all %}
             <form action="" method="post">
@@ -33,17 +53,19 @@
             <div>
               {{ form|crispy }}
               <input type="hidden" name="is_completed" value="{{ 1 }}">
-              <input class="btn btn-success" type="submit" value="finish this Task">
+              <h5>If You completed: <input class="btn btn-success" type="submit" value="finish this Task"></h5>
             </div>
             </form>
             <div>
             </div>
-        </div>
           {% endif %}
-          {% if user.id == task.owner.id %}
+        {% if user.id == task.owner.id %}
             <br>
             <a href="{% url "task_manager:task-delete" pk=task.id %}"><button class="btn btn-danger">Delete</button></a>
           {% endif %}
+        </div>
+
+
     </div>
   </div>
   </div>
