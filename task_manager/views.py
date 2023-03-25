@@ -8,7 +8,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.core.paginator import Paginator
 
-from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm, WorkerUpdateForm
+from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm, WorkerUpdateForm, \
+    TaskSearchForm
 from task_manager.models import Task
 
 
@@ -78,6 +79,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     queryset = Task.objects.prefetch_related("assignees").select_related("owner")
     paginate_by = 4
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        context["search_field"] = TaskSearchForm()
+
+        return context
+
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
@@ -95,11 +102,10 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     form_class = TaskCompletedUpdateForm
 
     def get_context_data(self, **kwargs):
-        self.task = Task.objects.get(id=self.object.pk)
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class()
 
-        if self.task.deadline < datetime.date.today():
+        if self.object.deadline < datetime.date.today():
             context["valid_data"] = False
         else:
             context["valid_data"] = True
@@ -110,11 +116,11 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
         form = TaskCompletedUpdateForm(request.POST)
 
         if request.POST.get("is_completed") == "1":
-            self.task.is_completed = True
-            self.task.save()
+            self.object.is_completed = True
+            self.object.save()
 
         if request.POST.get("assignees") == f"{self.request.user.id}":
-            self.task.assignees.add(self.request.user.id)
-            self.task.save()
+            self.object.assignees.add(self.request.user.id)
+            self.object.save()
 
         return redirect("task_manager:task-detail", pk=self.object.pk)
