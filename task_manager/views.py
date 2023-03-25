@@ -1,3 +1,5 @@
+import datetime
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -93,20 +95,26 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     form_class = TaskCompletedUpdateForm
 
     def get_context_data(self, **kwargs):
+        self.task = Task.objects.get(id=self.object.pk)
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class()
+
+        if self.task.deadline < datetime.date.today():
+            context["valid_data"] = False
+        else:
+            context["valid_data"] = True
         return context
 
     def post(self, request, **kwargs):
         self.object = self.get_object()
         form = TaskCompletedUpdateForm(request.POST)
 
-        task = Task.objects.get(id=self.object.pk)
         if request.POST.get("is_completed") == "1":
-            task.is_completed = True
-            task.save()
+            self.task.is_completed = True
+            self.task.save()
+
         if request.POST.get("assignees") == f"{self.request.user.id}":
-            task.assignees.add(self.request.user.id)
-            task.save()
+            self.task.assignees.add(self.request.user.id)
+            self.task.save()
 
         return redirect("task_manager:task-detail", pk=self.object.pk)

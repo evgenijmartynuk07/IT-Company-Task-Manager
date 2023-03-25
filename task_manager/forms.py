@@ -1,6 +1,10 @@
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.core.exceptions import ValidationError
+
 from task_manager.models import Task
 
 
@@ -52,7 +56,7 @@ class TaskCreateForm(forms.ModelForm):
 class TaskCompletedUpdateForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ("is_completed", "assignees",)
+        fields = ("is_completed", "assignees")
         widgets = {"assignees": forms.HiddenInput(), "is_completed": forms.HiddenInput()}
 
 
