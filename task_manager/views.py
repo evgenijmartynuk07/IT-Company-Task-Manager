@@ -81,9 +81,21 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
-        context["search_field"] = TaskSearchForm()
+
+        name = self.request.GET.get("name", "")
+        context["search_field"] = TaskSearchForm(initial={
+            "name": name
+        })
 
         return context
+
+    def get_queryset(self):
+        form = TaskSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(name__icontains=form.cleaned_data["name"])
+
+        return self.queryset
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
