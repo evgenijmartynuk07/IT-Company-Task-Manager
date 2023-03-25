@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete Your Account</h1>
+  <p>Are you sure you want to delete the account: {{ user }}?</p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete my account" class="btn btn-danger">
+  </form>
+{% endblock %}

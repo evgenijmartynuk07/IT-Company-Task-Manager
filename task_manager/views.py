@@ -85,6 +85,10 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = get_user_model().objects.prefetch_related("tasks").select_related("position")
 
 
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = get_user_model()
+
+
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskCreateForm
