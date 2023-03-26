@@ -10,8 +10,8 @@
           <h4>{{ task.name }}</h4>
         </div>
         <div class="card-body">
-          <p>{{ task.deadline }}</p>
-          <div class="card-text alert-primary p-2">
+          <p>Deadline: {{ task.deadline }}</p>
+          <div class="card-text alert-primary p-2 m-2">
             <p>{{ task.description }}</p>
           </div>
           {% if task.is_completed %}
@@ -54,7 +54,7 @@
             <div>
               {{ form|crispy }}
               <input type="hidden" name="is_completed" value="{{ 1 }}">
-              <h5>If You completed: <input class="btn btn-success" type="submit" value="finish this Task"></h5>
+              <h5>If task is completed: <input class="btn btn-success" type="submit" value="finish the Task"></h5>
             </div>
             </form>
             <div>
