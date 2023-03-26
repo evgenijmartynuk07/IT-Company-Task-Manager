@@ -17,10 +17,8 @@
            {% for task in page_obj %}
                {% if task.is_completed == False and user in task.assignees.all %}
            <div class="card mb-3 m-4">
-               <h5 class="card-header badge-primary">from:
-                          {{ task.owner.first_name }}
-                          {{ task.owner.last_name }}
-                          ({{ task.owner.username }})
+               <h5 class="card-header badge-primary">From:
+                          <a class="text-white" href="{% url "task_manager:worker-detail" pk=task.owner.id %}">@{{ task.owner.username }}</a>
                         </h5>
                   <div class="card-body">
                       <h5 class="card-title">{{ task.name }}</h5>
@@ -48,10 +46,8 @@
                     {% for task in page_obj %}
                     {% if task.is_completed == True and user in task.assignees.all %}
                       <div class="card mb-3 m-4">
-                        <h5 class="card-header badge-primary">from:
-                          {{ task.owner.first_name }}
-                          {{ task.owner.last_name }}
-                          ({{ task.owner.username }})
+                        <h5 class="card-header badge-primary">From:
+                          <a class="text-white" href="{% url "task_manager:worker-detail" pk=task.owner.id %}">@{{ task.owner.username }}</a>
                         </h5>
                         <div class="card-body">
                           <h5 class="card-title">{{ task.name }}</h5>

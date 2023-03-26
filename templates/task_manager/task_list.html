@@ -19,18 +19,18 @@
         <div class="card mb-3 m-4">
           <h5 class="card-header badge-primary">
             From:
-            {{ task.owner.first_name }}
-            {{ task.owner.last_name }}
-            (@{{ task.owner.username }})
+            <a class="text-white" href="{% url "task_manager:worker-detail" pk=task.owner.id %}">@{{ task.owner.username }}</a>
           </h5>
           <div class="card-body">
             <h5 class="card-title">{{ task.name }}</h5>
             <p class="card-text alert-primary p-4">{{ task.description }}</p>
             <h5 class="card-title">In process:</h5>
             <h6>
-            {% for worker in  task.assignees.all %}
-              username: @{{ worker }}
+            <ul>
+              {% for worker in  task.assignees.all %}
+              <li>{{ worker }}</li>
             {% endfor %}
+            </ul>
             </h6>
             <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
           </div>
@@ -51,9 +51,7 @@
           <div class="card mb-3 m-4">
             <h5 class="card-header badge-primary">
               From:
-              {{ task.owner.first_name }}
-              {{ task.owner.last_name }}
-              (@{{ task.owner.username }})
+              <a class="text-white" href="{% url "task_manager:worker-detail" pk=task.owner.id %}">@{{ task.owner.username }}</a>
             </h5>
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
