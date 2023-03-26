@@ -3,15 +3,6 @@
     <div class="m-5 nav justify-content-center m-4">
       <h2>Worker List Page</h2>
       <br>
-
-{#        <div class="col-lg-3 ms-auto me-auto p-lg-2 mt-lg-0 mt-1 alert alert-dark m-2">#}
-
-{#        <div class="card">#}
-{#          <h5>Worker: <a href="{% url "task_manager:worker-detail" pk=worker.id %}">{{ worker.username }}</a></h5>#}
-{#            <h5>Position: {{ worker.position.name }}</h5>#}
-{#            {% for task in worker.tasks.all %}#}
-{#                <botton class="btn-primary"><a href="{% url "task_manager:task-detail" pk=task.id %}"><h5 class="text-white">from: {{ task.name }}</h5></a></botton>#}
-{#            {% endfor %}#}
        <table class="table text-center m-4" style="background-color: white">
         <tr>
           <th>Username</th>
@@ -50,22 +41,4 @@
         {% endfor %}
       </table>
     </div>
-
-{#        <table>#}
-{#          <tr>#}
-{#              <th>Username</th>#}
-{#          </tr>#}
-
-{#          <tr>#}
-{#            <td>#}
-{#              {{ worker.username }}#}
-{#            </td>#}
-{#          </tr>#}
-{##}
-{#        </table>#}
-{#      {% endfor %}#}
-{#     </div>#}
-
-
-
 {% endblock %}
