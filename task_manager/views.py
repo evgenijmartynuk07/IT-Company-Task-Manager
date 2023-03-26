@@ -121,7 +121,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
-    fields = ("name", "description", "deadline", "priority", "task_type", "assignees")
+    form_class = TaskCreateForm
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):

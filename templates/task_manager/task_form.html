@@ -5,8 +5,8 @@
 
 {% block content %}
 
-    <div class="ml-auto mt-auto m-sm-auto nav justify-content-center p-4">
-    <div class="badge ml-4 col-lg-4 nav justify-content-center m-0 p-4" style="background-color: white">
+    <div class="min-vh-100 ml-auto mt-auto m-sm-auto nav justify-content-center p-4">
+    <div class=" ml-4 col-lg-4 nav justify-content-center m-0 p-4" style="background-color: white">
           <form class=" m-1 p-1" action="" method="post">
               {% csrf_token %}
                   {{ form|crispy }}
@@ -16,7 +16,7 @@
         </div>
         <div class="badge col-lg-3 nav justify-content-center m-6 p-6" style="background-color: white">
          <div class="badge text-wrap m-4" style="width: 25rem; height: 15rem">
-           <h4><span style="font-size: xxx-large">Here you can create a new task!</span><br>You can choose a person.
+           <h4><span style="font-size: xxx-large">{{ task.id|yesno:"Here you can update your own task!,Here you can create a new task!" }}</span><br>You can choose a person.
               if you are sure that this person should complete the task,
               or You can leave the field empty,
               the employees themselves will decide who wants this task.
