@@ -53,11 +53,14 @@
                           <h5 class="card-title">{{ task.name }}</h5>
                           <p class="card-text alert-primary p-4">{{ task.description }}</p>
                           <h5 class="card-title">Done by:
-                            {% for worker in task.assignees.all %}
-                              {{ worker }}
-                            {% endfor %}
+                            <h6>
+                              <ul>
+                              {% for worker in  task.assignees.all %}
+                                <li><a href="{% url "task_manager:worker-detail" pk=worker.id %}">{{ worker }}</a></li>
+                              {% endfor %}
+                            </ul>
+                            </h6>
                           </h5>
-
                           <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
                         </div>
                       </div>
