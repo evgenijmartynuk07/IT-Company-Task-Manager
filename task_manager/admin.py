@@ -24,7 +24,13 @@ class PositionAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ["name", "description", "deadline", "is_completed", "priority"]
+    list_display = [
+        "name",
+        "description",
+        "deadline",
+        "is_completed",
+        "priority"
+    ]
 
 
 @admin.register(Worker)

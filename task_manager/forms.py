@@ -1,9 +1,6 @@
-from datetime import datetime
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.core.exceptions import ValidationError
 
 from task_manager.models import Task
 
@@ -55,7 +52,15 @@ class TaskCreateForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ("name", "description", "deadline", "priority", "task_type", "assignees", "owner")
+        fields = (
+            "name",
+            "description",
+            "deadline",
+            "priority",
+            "task_type",
+            "assignees",
+            "owner"
+        )
         widgets = {"owner": forms.HiddenInput()}
 
 
@@ -63,7 +68,10 @@ class TaskCompletedUpdateForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ("is_completed", "assignees")
-        widgets = {"assignees": forms.HiddenInput(), "is_completed": forms.HiddenInput()}
+        widgets = {
+            "assignees": forms.HiddenInput(),
+            "is_completed": forms.HiddenInput()
+        }
 
 
 class TaskSearchForm(forms.Form):
@@ -82,6 +90,3 @@ class WorkerSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(attrs={"placeholder": "Search by username..."})
     )
-
-
-

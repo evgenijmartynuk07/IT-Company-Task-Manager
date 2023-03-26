@@ -8,8 +8,16 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.core.paginator import Paginator
 
-from task_manager.forms import WorkerCreateForm, TaskCreateForm, TaskCompletedUpdateForm, WorkerUpdateForm, \
-    TaskSearchForm, WorkerSearchForm
+from task_manager.forms import (
+    WorkerCreateForm,
+    WorkerUpdateForm,
+    WorkerSearchForm,
+    TaskCreateForm,
+    TaskCompletedUpdateForm,
+    TaskSearchForm,
+
+)
+
 from task_manager.models import Task
 
 
@@ -75,14 +83,20 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         form = WorkerSearchForm(self.request.GET)
 
         if form.is_valid():
-            return queryset.filter(username__icontains=form.cleaned_data["username"])
+            return queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
 
         return queryset
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = get_user_model()
-    queryset = get_user_model().objects.prefetch_related("tasks").select_related("position")
+    queryset = get_user_model().objects.prefetch_related(
+        "tasks"
+    ).select_related(
+        "position"
+    )
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -110,7 +124,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self) -> QuerySet:
-        queryset = Task.objects.prefetch_related("assignees").select_related("owner")
+        queryset = Task.objects.prefetch_related(
+            "assignees"
+        ).select_related(
+            "owner"
+        )
+
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
@@ -131,7 +150,11 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
-    queryset = Task.objects.prefetch_related("assignees").select_related("task_type")
+    queryset = Task.objects.prefetch_related(
+        "assignees"
+    ).select_related(
+        "task_type"
+    )
     form_class = TaskCompletedUpdateForm
 
     def get_context_data(self, **kwargs) -> dict:

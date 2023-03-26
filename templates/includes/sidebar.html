@@ -3,56 +3,50 @@
 
 <div class="h-auto w-auto pe-auto">
   <nav class="navbar h-25" style="background-color: mediumpurple">
-      <div class="nav justify-content-center">
-        <ul class="nav justify-content-center" style="background-color: mediumpurple">
+    <div class="nav justify-content-center">
+      <ul class="nav justify-content-center" style="background-color: mediumpurple">
+    <li class="nav-item">
+      <a class="nav-link active text-white" aria-current="page" href="{% url "task_manager:index" %}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="{% url "task_manager:task-list" %}">Tasks</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="{% url "task_manager:worker-list" %}">Workers</a>
+    </li>
+    {% if not user.id %}
+    <li class="nav-item">
+        <a class="nav-link text-white" href="{%  url "login" %}">Login</a>
+    </li>
+    {% endif %}
+        {% if not user.id %}
+    <li class="nav-item">
+        <a class="nav-link text-white" href="{% url "task_manager:worker-create" %}">Register</a>
+    </li>
+        {% endif %}
+      {% if user.id %}
       <li class="nav-item">
-        <a class="nav-link active text-white" aria-current="page" href="{% url "task_manager:index" %}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="{% url "task_manager:task-list" %}">Tasks</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="{% url "task_manager:worker-list" %}">Workers</a>
-      </li>
-           <li class="nav-item">
-        <a class="nav-link text-white" href="#">About Us</a>
-      </li>
-      {% if not user.id %}
-      <li class="nav-item">
-          <a class="nav-link text-white" href="{%  url "login" %}">Login</a>
-      </li>
+        <a class="nav-link text-white" href="{% url "task_manager:worker-detail" pk=user.id %}">My Page</a>
+    </li>
       {% endif %}
-          {% if not user.id %}
-      <li class="nav-item">
-          <a class="nav-link text-white" href="{% url "task_manager:worker-create" %}">Register</a>
-      </li>
-          {% endif %}
-        {% if user.id %}
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url "task_manager:worker-detail" pk=user.id %}">My Page</a>
-      </li>
-        {% endif %}
-        {% if search_field %}
-        <div class="nav-item">
-          <form class="form-inline" action="" method="get">
-            {{ search_field|crispy }}
-            <input class="btn btn-dark" type="submit" value="🔍">
-          </form>
-        </div>
-        {% endif %}
-      </ul>
-
+      {% if search_field %}
+      <div class="nav-item">
+        <form class="form-inline" action="" method="get">
+          {{ search_field|crispy }}
+          <input class="btn btn-dark" type="submit" value="🔍">
+        </form>
       </div>
-
-     {% if user.id %}
-         <div class="nav justify-content-end">
-          <a class="nav-link text-warning" href="{% url "logout" %}">
-            Logout
-            <img src="{% static "task_manager/logout-48.png" %}">
-          </a>
-        </div>
       {% endif %}
+    </ul>
+    </div>
 
-</nav>
+    {% if user.id %}
+     <div class="nav justify-content-end">
+      <a class="nav-link text-warning" href="{% url "logout" %}">
+        Logout
+        <img src="{% static "task_manager/logout-48.png" %}">
+      </a>
+    </div>
+    {% endif %}
+  </nav>
 </div>
-
