@@ -38,7 +38,7 @@ python manage.py runserver
 
 ## Link to the Project
 
-[It company task manager project deployed to Render](it-manager-project.onrender.com)
+[It company task manager project deployed to Render](https://it-manager-project.onrender.com/)
 
 You may use such credentials:
 
