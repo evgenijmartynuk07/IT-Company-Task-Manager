@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="pe-auto w-auto h-auto nav justify-content-center m-4">
+    <div class="col-lg-4 nav justify-content-center m-4 p-4" style="background-color: white">
+    <h1>Delete Task</h1>
+  <p class="text-danger">Are you sure want to delete the task: "{{ task }}"?</p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete the task" class="btn btn-danger">
+  </form>
+  </div>
+  </div>
+
+{% endblock %}

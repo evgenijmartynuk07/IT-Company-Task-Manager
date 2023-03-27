@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="min-vh-100">
+  <div class="pe-auto w-auto h-auto nav justify-content-center m-4">
+    <div class="card col-lg-6 ms-auto me-auto p-lg-0 mt-lg-0 mt-0 alert alert-dark m-4" style="background-color: white">
+      <div class="card-header badge-danger nav justify-content-center w-100">
+        <h4>{{ task.name }}</h4>
+      </div>
+      <div class="card-body">
+        <p>Deadline: {{ task.deadline }}</p>
+        <div class="card-text alert-primary p-2 m-2">
+          <p>{{ task.description }}</p>
+        </div>
+        {% if task.is_completed %}
+        <p>This Task closed by:</p>
+          <ul>
+            {% for worker in task.assignees.all %}
+              <li>
+                <p>{{ worker.username }}</p>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>This Task open by:</p>
+          <ul>
+            {% for worker in task.assignees.all %}
+              <li>
+                <p>{{ worker.username }}</p>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if user not in task.assignees.all  %}
+          <form action="" method="post">
+            {% csrf_token %}
+            <div>
+              {{ form|crispy }}
+              <input type="hidden" name="assignees" value="{{ user.id }}">
+              <input class="btn badge-primary" type="submit" value="start working">
+            </div>
+          </form>
+        {% elif not task.is_completed %}
+          <h5>You started this Task</h5>
+        {% else %}
+          <h5>You finish this Task</h5>
+        {% endif %}
+        {% if task.is_completed == False and user in task.assignees.all %}
+          {% if valid_data %}
+          <form action="" method="post">
+          {% csrf_token %}
+          <div>
+            {{ form|crispy }}
+            <input type="hidden" name="is_completed" value="{{ 1 }}">
+            <h5>If task is completed: <input class="btn btn-success" type="submit" value="finish the Task"></h5>
+          </div>
+          </form>
+          <div>
+          </div>
+            {% else %}
+              <h5 class="text-danger">Sorry! Deadline end: {{ task.deadline }}</h5>
+            {% endif %}
+
+        {% endif %}
+      {% if user.id == task.owner.id %}
+          <br>
+        <div class="nav justify-content-end">
+          <a class="m-2" href="{% url "task_manager:task-update" pk=task.id %}"><button class="btn btn-primary">Update</button></a>
+          <a class="m-2" href="{% url "task_manager:task-delete" pk=task.id %}"><button class="btn btn-danger">Delete</button></a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

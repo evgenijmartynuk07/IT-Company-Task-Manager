@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="pe-auto m-auto h-auto">
+    <h2 class="nav justify-content-center m-4">Task List Page</h2>
+    <div class="nav justify-content-center m-4">
+      <div class="col-lg-4 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert-dark m-2" style="background-color: white">
+        <div class="nav justify-content-center">
+          <h3>
+          <img src="{% static "task_manager/not yet.png" %}">
+          In process
+          <a href="{% url "task_manager:task-create" %}" class="btn btn-primary">Add a task</a>
+         </h3>
+        </div>
+
+    {% for task in task_list %}
+      {% if task.is_completed == False %}
+        <div class="card mb-3 m-4">
+          <h5 class="card-header badge-primary">
+            From:
+            <a class="text-white" href="{% url "task_manager:worker-detail" pk=task.owner.id %}">@{{ task.owner.username }}</a>
+          </h5>
+          <div class="card-body">
+            <h5 class="card-title">{{ task.name }}</h5>
+            <p class="card-text alert-primary p-4">{{ task.description }}</p>
+            <h5 class="card-title">In process:</h5>
+            <h6>
+            <ul>
+              {% for worker in  task.assignees.all %}
+                <li><a href="{% url "task_manager:worker-detail" pk=worker.id %}">{{ worker }}</a></li>
+              {% endfor %}
+            </ul>
+            </h6>
+            <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
+          </div>
+        </div>
+            {% endif %}
+    {% endfor %}
+      </div>
+      <div class="col-lg-4 ms-auto me-auto p-lg-2 mt-lg-0 mt-2 alert alert alert-dark m-2" style="background-color: white">
+        <div class="nav justify-content-center">
+          <h3 class="d-flex align-items-center">
+          <img src="{% static "task_manager/ok.png" %}">
+           Done
+          </h3>
+        </div>
+
+      {% for task in task_list %}
+        {% if task.is_completed == True %}
+          <div class="card mb-3 m-4">
+            <h5 class="card-header badge-primary">
+              From:
+              <a class="text-white" href="{% url "task_manager:worker-detail" pk=task.owner.id %}">@{{ task.owner.username }}</a>
+            </h5>
+            <div class="card-body">
+              <h5 class="card-title">{{ task.name }}</h5>
+              <p class="card-text alert-primary p-4">{{ task.description }}</p>
+              <h5 class="card-title">Done by:
+                <h6>
+                  <ul>
+                    {% for worker in  task.assignees.all %}
+                      <li><a href="{% url "task_manager:worker-detail" pk=worker.id %}">{{ worker }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </h6>
+              </h5>
+              <span class="nav justify-content-end"><a href="{% url "task_manager:task-detail" pk=task.id %}" class="btn btn-outline-primary">Open</a></span>
+            </div>
+          </div>
+    {% endif %}
+  {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
