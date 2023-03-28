@@ -32,6 +32,7 @@
             {% endfor %}
           </ul>
         {% endif %}
+        {% if not task.is_completed %}
         {% if user not in task.assignees.all  %}
           <form action="" method="post">
             {% csrf_token %}
@@ -45,6 +46,7 @@
           <h5>You started this Task</h5>
         {% else %}
           <h5>You finish this Task</h5>
+        {% endif %}
         {% endif %}
         {% if task.is_completed == False and user in task.assignees.all %}
           {% if valid_data %}
