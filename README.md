@@ -30,7 +30,8 @@ Python3 must be already installed
 git https://github.com/evgenijmartynuk07/it-company-task-manager
 cd it_company
 python -m venv venv
-venv/Scripts/activate
+Windows: venv\Scripts\activate
+Linux, Unix: source venv/bin/activate
 pip install -r requirements.txt
 python manage.py runserver
 ```
